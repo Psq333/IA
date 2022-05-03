@@ -1,0 +1,14 @@
+#show scelta/3.
+scelta(R,C,V) | nonscelta(R,C,V):- c(R,C,_), b(V).
+
+:-#count{R,C:scelta(R,C,_)} != 1.
+:-scelta(R,C,_),c(R,C,V), V != 0.
+
+:-scelta(R,C,V), c(R+1,C,0), R < 5.
+:~scelta(R,C,_), m(M). [M-R@1, R, C, M]
+
+:~ scelta(R,C,V), c(R,C1,V), C > C1+1, C1 > 4. [C-C1@2, C, C1]
+:~ scelta(R,C,V), c(R,C1,V), C < C1-1, C1 <= 0. [C1-C@2, C, C1]
+
+cellaInTesta(R,C,V):- c(R,C,V), c(R-1,C,0), V != 0.
+:~ scelta(_,C,V1), cellaInTesta(R,C,V2), V1 != V2. [1@3]
